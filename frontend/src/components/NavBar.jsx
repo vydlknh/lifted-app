@@ -1,6 +1,6 @@
 import { Outlet, Link } from "react-router"
 
-function Layout(){
+function NavBar(){
   return (
     <div>
       <nav className="dashboard">
@@ -14,4 +14,4 @@ function Layout(){
   )
 }
 
-export default Layout
+export default NavBar
