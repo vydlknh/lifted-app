@@ -1,15 +1,32 @@
-import { Outlet, Link } from "react-router"
+import { Link, useNavigate} from "react-router-dom"
+import { signOut } from "firebase/auth"
+import { auth } from "../firebase"
 
 function NavBar(){
+  const navigate = useNavigate();
+
+  const handleLogout = async () => {
+    signOut(auth).then(() => {
+      navigate("/");
+      console.log("User signed out");
+    }).catch((error) => {
+      console.error("Error signing out: ", error);
+    });
+  }
+
   return (
     <div>
       <nav className="dashboard">
-        <Link to="/dashboard">Dashboard</Link>
-        <Link to="/cycle-tracking">Cycle Tracking</Link>
-        <Link to="/progress">Progress</Link>
-        <Link to="/profile">Profile</Link>
+        <div className="logged_out">
+          <Link to="/">Lifted</Link>
+        </div>
+        <div className="hidden">
+          <Link to="/dashboard">Dashboard</Link>
+          <Link to="/cycle-tracking">Cycle Tracking</Link>
+          <Link to="/profile">Profile</Link>
+          <button onClick={handleLogout}>Logout</button>
+        </div>
       </nav>
-      <Outlet />
     </div>
   )
 }

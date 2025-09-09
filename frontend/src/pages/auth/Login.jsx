@@ -7,9 +7,11 @@ const Login = () => {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
 
   const onLogin = (e) => {
     e.preventDefault();
+    setError("");
     signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         // Signed in
@@ -18,9 +20,8 @@ const Login = () => {
         console.log(user);
       })
       .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        console.log(errorCode, errorMessage);
+        setError("Invalid email or password. Please try again.");
+        console.error(error);
       });
   };
 
@@ -31,6 +32,7 @@ const Login = () => {
           <div>
             <h1>Lifted</h1>
             <form>
+              {error && <p className="error text-red">{error}</p>}
               <div>
                 <label htmlFor="email-address">Email address</label>
                 <input

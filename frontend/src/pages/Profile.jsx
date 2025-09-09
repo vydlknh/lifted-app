@@ -5,7 +5,6 @@ function Profile() {
 
   return (
     <>
-      <NavBar />
       <div className="header">
         <h1>Profile</h1>
       </div>

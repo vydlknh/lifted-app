@@ -41,11 +41,8 @@ const Signup = () => {
       console.log(user);
       navigate("/questionnaire");
     } catch(error) {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        setError(errorMessage);
-        console.log(errorCode, errorMessage);
-        // ..
+        setError(error.code === 'auth/email-already-in-use' ? 'Email address is already in use.' : 'Failed to create an account.');
+        console.error(error);
       };
   };
 
