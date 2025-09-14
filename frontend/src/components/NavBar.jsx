@@ -17,19 +17,22 @@ function NavBar(){
   return (
     <header className="bg-pink-200 drop-shadow-lg sticky top-0 z-50">
       <nav className="container mx-auto px-4 py-4 flex justify-between items-center">
-        <div>
-            <Link to="/dashboard" className="text-xl font-bold text-gray-800">Lifted</Link>
+        <div className="flex items-center space-x-3">
+            <Link to="/dashboard" className="text-xl font-bold text-green-900"><img src="dumbbell.png" alt="dumbbell" height={30} width={30}/></Link>
+            <Link to="/dashboard" className="text-2xl font-bold text-green-900">Lifted</Link>
         </div>
 
         <div className="flex items-center space-x-6">
-            <Link to="/dashboard" className="text-gray-600 hover:text-pink-400">Dashboard</Link>
-            <Link to="/cycle-tracking" className="text-gray-600 hover:text-pink-400">Cycle Tracking</Link>
-            <Link to="/profile" className="text-gray-600 hover:text-pink-400">Profile</Link>
+            <Link to="/dashboard" className="text-green-900 hover:text-green-700 font-bold">Dashboard</Link>
+            <Link to="/cycle-tracking" className="text-green-900 hover:text-green-700 font-bold">Cycle Tracking</Link>
+            <Link to="/profile" className="text-green-900 hover:text-green-700 font-bold">Profile</Link>
             <button 
                 onClick={handleLogout}
-                className="bg-pink-400 text-white px-4 py-2 rounded-md text-sm font-medium hover:bg-pink-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-pink-500"
+                className="bg-green-800 text-white px-4 py-2 rounded-md text-sm font-medium font-bold hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500"
             >
+              <div className="font-bold">
                 Logout
+              </div>
             </button>
         </div>
       </nav>

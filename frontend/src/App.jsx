@@ -15,7 +15,13 @@ const ProtectedLayout = () => {
 
     // Loading message while firebase is checking the auth state
     if (loading) {
-        return <div>Loading...</div>;
+      return (
+        <div className="bg-pink-100 text-grey-900 flex justify-center min-h-screen">
+          <div className="container mx-auto px-4 py-6">
+            <h1 className="text-3xl font-bold text-green-900">Loading...</h1>
+          </div>
+        </div>
+        )
     }
 
     // If loading is complete and there's no user, redirect to the home page
@@ -25,14 +31,14 @@ const ProtectedLayout = () => {
 
     // If the user is logged in, render the navigation bar and the requested page
     return (
-        <div>
-            <NavBar />
-            <main>
-                <div className="main-content">
-                    <Outlet />
-                </div>
-            </main>
-        </div>
+      <div>
+        <NavBar />
+        <main>
+          <div className="main-content">
+            <Outlet />
+          </div>
+        </main>
+      </div>
     );
 };
 
