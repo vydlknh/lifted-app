@@ -18,7 +18,7 @@ function NavBar(){
     <div>
       <nav className="dashboard">
         <div className="logged_out">
-          <Link to="/">Lifted</Link>
+          <Link to="/dashboard">Lifted</Link>
         </div>
         <div className="hidden">
           <Link to="/dashboard">Dashboard</Link>
