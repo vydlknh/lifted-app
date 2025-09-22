@@ -15,19 +15,25 @@ function NavBar(){
   }
 
   return (
-    <div>
-      <nav className="dashboard">
-        <div className="logged_out">
-          <Link to="/dashboard">Lifted</Link>
+    <header className="bg-pink-200 drop-shadow-lg sticky top-0 z-50">
+      <nav className="container mx-auto px-4 py-4 flex justify-between items-center">
+        <div>
+            <Link to="/dashboard" className="text-xl font-bold text-gray-800">Lifted</Link>
         </div>
-        <div className="hidden">
-          <Link to="/dashboard">Dashboard</Link>
-          <Link to="/cycle-tracking">Cycle Tracking</Link>
-          <Link to="/profile">Profile</Link>
-          <button onClick={handleLogout}>Logout</button>
+
+        <div className="flex items-center space-x-6">
+            <Link to="/dashboard" className="text-gray-600 hover:text-pink-400">Dashboard</Link>
+            <Link to="/cycle-tracking" className="text-gray-600 hover:text-pink-400">Cycle Tracking</Link>
+            <Link to="/profile" className="text-gray-600 hover:text-pink-400">Profile</Link>
+            <button 
+                onClick={handleLogout}
+                className="bg-pink-400 text-white px-4 py-2 rounded-md text-sm font-medium hover:bg-pink-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-pink-500"
+            >
+                Logout
+            </button>
         </div>
       </nav>
-    </div>
+    </header>
   )
 }
 

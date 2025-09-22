@@ -81,7 +81,7 @@ const Signup = () => {
             />
           </div>
 
-          <button type="submit" onClick={onSubmit} className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-pink-300 hover:bg-pink-400 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-pink-300 mt-4">
+          <button type="submit" onClick={onSubmit} className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-pink-400 hover:bg-pink-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-pink-500 mt-4">
             Sign up
           </button>
         </form>
