@@ -12,14 +12,11 @@ export const calculateCycleInfo = (profileData) => {
   const today = new Date();
 
   const totalDaysPassed = Math.floor((today - lastPeriodDate) / (1000 * 60 * 60 * 24));
-  console.log("Total days passed since last period:", totalDaysPassed);
-  console.log('last period date:', lastPeriodDate);
   
   
   if (totalDaysPassed < 0) return null; // In case the date is in the future
   const cyclesPassed = Math.floor(totalDaysPassed / cycleLength);
   const currentCycleStartDate = addDays(lastPeriodDate, cyclesPassed * cycleLength);
-  console.log("Current cycle start date:", currentCycleStartDate);
 
   const daysOfCycle = Math.floor((today - currentCycleStartDate) / (1000 * 60 * 60 * 24));
   

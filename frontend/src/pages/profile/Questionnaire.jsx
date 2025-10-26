@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useAuth } from "../auth/AuthContext";
 import { doc, setDoc } from "firebase/firestore";
 import { db } from "../../firebase";
+import { calculateCycleInfo } from "../../components/CycleCalculation";
 
 function Questionnaire() {
   const navigate = useNavigate();
@@ -120,6 +121,12 @@ function Questionnaire() {
       fitnessGoal, dietRestriction, cycleStart, periodLength, cycleLength 
     };
 
+    const cycleInfo = calculateCycleInfo({
+      cycleStart,
+      periodLength,
+      cycleLength
+    });
+
     const validationResult = validateForm(formData);
 
     if (Object.keys(validationResult).length > 0) {
@@ -130,6 +137,7 @@ function Questionnaire() {
     try {
       const userProfileData = {
         ...formData,
+        cycleInfo,
         email: user.email,
         createdAt: new Date()
       };
