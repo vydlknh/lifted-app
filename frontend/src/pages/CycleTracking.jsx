@@ -26,11 +26,12 @@ function CycleTracking() {
         
         if (userSnap.exists()) {
           const profileData = userSnap.data();
-          // const storedInfo = profileData.cycleInfo
+          const storedInfo = profileData.cycleInfo
 
-          // if (storedInfo) {
-          //   setCycleInfo(storedInfo);
-          // } else {
+          // Check if cycle info is already calculated for today
+          if (storedInfo.lastCalculated && format(new Date(storedInfo.lastCalculated), 'yyyy-MM-dd') === format(new Date(), 'yyyy-MM-dd')) {
+            setCycleInfo(storedInfo);
+          } else {
             const newCycleInfo = calculateCycleInfo(profileData);
             if (newCycleInfo) {
               // Save the newly calculated info back to Firebase
@@ -39,7 +40,7 @@ function CycleTracking() {
             } else {
               setError("Could not calculate cycle info from your profile.");
             }
-          // }
+          }
         }
       }
       catch (err) {

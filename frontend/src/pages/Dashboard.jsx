@@ -31,6 +31,8 @@ function Dashboard() {
         if (userSnap.exists()) {
           const profileData = userSnap.data();
           setUserProfile(profileData);
+          console.log(profileData);
+          
           const storedWorkout = profileData.dailyWorkout;
 
           if (storedWorkout && storedWorkout.generatedDate && isToday(new Date(storedWorkout.generatedDate))) {

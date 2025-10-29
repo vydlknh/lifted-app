@@ -15,11 +15,7 @@ if (!admin.apps.length) {
     });
 }
 
-// const db = admin.firestore();
-
 export const handler = async (event) => {
-    console.log("HTTP Method:", event.httpMethod);
-    console.log("Raw Event Body:", event.body);
 
     try {
         const { userProfile, currentPhase } = JSON.parse(event.body);
@@ -55,6 +51,7 @@ export const handler = async (event) => {
                 ]
             }
         `;
+        console.log(prompt);
 
         const response = await openai.chat.completions.create({
             model: "gpt-4o-mini",
