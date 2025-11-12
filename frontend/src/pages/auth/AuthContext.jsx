@@ -5,6 +5,7 @@ import { doc, getDoc, setDoc } from "firebase/firestore";
 import { db } from "../../firebase";
 import { isToday } from 'date-fns';
 import { calculateCycleInfo } from '../../components/CycleCalculation';
+import { calculateTDEE } from '../../components/TDEECalculation';
 
 const AuthContext = createContext();
 
@@ -18,16 +19,15 @@ export const AuthProvider = ({ children }) => {
       setUser(user);
       if (user) {
         try {
-          const userProfileRef = doc(db, 'userProfiles', user.uid);
+          const userProfileRef = doc(db, 'UserProfiles', user.uid);
           const docSnap = await getDoc(userProfileRef);
 
           if (docSnap.exists()) {
             const profileData = docSnap.data();
             
             // Check if the cycle info needs to be recalculated (i.e., it's not from today)
-            const needsUpdate = !profileData.cycleInfo || !profileData.cycleInfo.lastCalculated || !isToday(new Date(profileData.cycleInfo.lastCalculated));
 
-            if (needsUpdate) {
+            if (!profileData.cycleInfo || !profileData.cycleInfo.lastCalculated || !isToday(new Date(profileData.cycleInfo.lastCalculated))) {
               console.log("Cycle data is stale or missing. Recalculating...");
               const newCycleInfo = calculateCycleInfo(profileData);
               
@@ -38,6 +38,19 @@ export const AuthProvider = ({ children }) => {
               }
             } else {
                 console.log("Cycle data is up-to-date.");
+            }
+
+            // Calculate TDEE if missing
+            if (!profileData.tdee || !profileData.lastProfileUpdate || !isToday(new Date(profileData.lastProfileUpdate))) {
+              console.log("TDEE data is stale or missing. Recalculating...");
+              const newTDEE = calculateTDEE(profileData);
+
+              if (newTDEE) {
+                await setDoc(userProfileRef, { tdee: newTDEE, lastProfileUpdate: new Date().toISOString() }, { merge: true });
+                console.log("Successfully updated TDEE in Firestore.");
+              }
+            } else {
+              console.log("TDEE data is up-to-date.");
             }
           }
         } catch (error) {

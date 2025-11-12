@@ -1,0 +1,26 @@
+{
+  "name": "lifted",
+  "version": "1.0.0",
+  "description": "Lifted is an AI-powered web application that generates personalized fitness training plans and meal recommendations tailored to women's menstrual cycle phases. The system analyzes individual wellness goals and cycle data to optimize nutrition and exercise routines, supporting women in achieving sustainable health outcomes through science-based, hormonally-informed guidance.",
+  "main": "index.js",
+  "scripts": {
+    "dev": "npm run dev --prefix frontend",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vydlknh/lifted-app.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/vydlknh/lifted-app/issues"
+  },
+  "homepage": "https://github.com/vydlknh/lifted-app#readme",
+  "dependencies": {
+    "firebase-admin": "^13.5.0",
+    "lucide-react": "^0.553.0",
+    "openai": "^6.7.0"
+  }
+}

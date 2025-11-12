@@ -3,6 +3,7 @@ import { useAuth } from "./auth/AuthContext";
 import { doc, getDoc, setDoc } from "firebase/firestore";
 import { db } from "../firebase";
 import { format, isToday } from "date-fns";
+import { MealPlanCard } from "../components/MealPlanCard";
 
 function Dashboard() {
   const { user } = useAuth();
@@ -13,6 +14,10 @@ function Dashboard() {
   const [workoutPlan, setWorkoutPlan] = useState(null);
   const [generatingWorkout, setGeneratingWorkout] = useState(false);
   const [workoutError, setWorkoutError] = useState(null);
+
+  const [mealPlan, setMealPlan] = useState(null);
+  const [generatingMealPlan, setGeneratingMealPlan] = useState(false);
+  const [mealPlanError, setMealPlanError] = useState(null);
 
   useEffect(() => {
     const initializeDashboard = async () => {
@@ -39,6 +44,14 @@ function Dashboard() {
             setWorkoutPlan(storedWorkout);
           } else {
             await handleGenerateWorkout(profileData, uid);
+          }
+
+          const storedMealPlan = profileData.dailyMealPlan;
+
+          if (storedMealPlan && storedMealPlan.generatedDate && isToday(new Date(storedMealPlan.generatedDate))) {
+            setMealPlan(storedMealPlan);
+          } else {
+            await handleGenerateMealPlan(profileData, uid);
           }
         } else {
           setError('No user profile found.');
@@ -93,6 +106,45 @@ function Dashboard() {
         setGeneratingWorkout(false);
       }
     }
+
+    const handleGenerateMealPlan = async (profileData, uid) => {
+      if (!user) {
+        setMealPlanError('No user is signed in.');
+        return;
+      }
+
+      setGeneratingMealPlan(true);
+      setMealPlanError(null);
+      setMealPlan(null);
+      try {
+        const response = await fetch('/.netlify/functions/generateMealPlan', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            userProfile: profileData,
+            currentPhase: profileData.cycleInfo.currentPhase,
+          }),
+        });
+
+        if (!response.ok) {
+          throw new Error(`Error: ${response.statusText}`);
+        }
+        const newMealPlanData = await response.json();
+        const todaysMealPlan = {
+          ...newMealPlanData,
+          generatedDate: new Date().toISOString()
+        };
+        const userProfileRef = doc(db, 'UserProfiles', uid);
+        await setDoc(userProfileRef, { dailyMealPlan: todaysMealPlan }, { merge: true });
+
+        setMealPlan(todaysMealPlan);
+      } catch (err) {
+        setMealPlanError('Failed to generate meal plan.');
+        console.error(err);
+      } finally {
+        setGeneratingMealPlan(false);
+      }
+    }
     initializeDashboard();
   
   }, [user]);
@@ -144,6 +196,12 @@ function Dashboard() {
           ) : (
               !generatingWorkout && <p className="text-gray-500">Your workout plan should appear here.</p>
             )}
+        </div>
+
+        <div className="mt-6 border-t border-pink-200 pt-6">
+          {generatingMealPlan && (!mealPlan && !mealPlanError) && <div className="rounded-xl p-8 shadow-lg h-full"><p className="text-gray-500 animate-pulse">Creating your meal plan...</p></div>}
+          {mealPlanError && <div className="rounded-xl p-8 shadow-lg h-full"><p className="text-red-600">{mealPlanError}</p></div>}
+          {mealPlan && <MealPlanCard mealPlan={mealPlan} />}
         </div>
       </div>
     </div>
