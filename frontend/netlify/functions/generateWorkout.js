@@ -1,5 +1,5 @@
-import admin from "firebase-admin";
-import OpenAI from "openai";
+const admin = require('firebase-admin');
+const OpenAI = require('openai').default;
 import process from "process";
 import { Buffer } from "buffer";
 
