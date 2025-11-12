@@ -15,7 +15,7 @@ if (!admin.apps.length) {
   });
 }
 
-export const handler = async (event) => {
+exports.handler = async (event) => {
 
   try {
     const { userProfile, currentPhase } = JSON.parse(event.body);
