@@ -3,7 +3,7 @@ import { useAuth } from "./auth/AuthContext";
 import { format } from 'date-fns';
 import { doc, getDoc, setDoc } from "firebase/firestore";
 import { db } from "../firebase";
-import { calculateCycleInfo } from '../components/CycleCalculation';
+import { calculateCycleInfo } from '../utils/CycleCalculation';
 
 function CycleTracking() {
   const { user } = useAuth();

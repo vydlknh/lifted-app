@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useAuth } from "../auth/AuthContext";
 import { doc, setDoc } from "firebase/firestore";
 import { db } from "../../firebase";
-import { calculateCycleInfo } from "../../components/CycleCalculation";
+import { calculateCycleInfo } from "../../utils/CycleCalculation";
 
 function Questionnaire() {
   const navigate = useNavigate();

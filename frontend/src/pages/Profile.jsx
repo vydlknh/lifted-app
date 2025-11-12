@@ -2,6 +2,10 @@ import React, { useEffect, useState } from "react";
 import { useAuth } from "./auth/AuthContext";
 import { doc, getDoc } from "firebase/firestore";
 import { db } from "../firebase";
+import { registerCharts } from "../utils/registerCharts";
+import WeightGraph from "../components/WeightGraph";
+
+registerCharts();
 
 function Profile() {
   const { user } = useAuth();
@@ -69,15 +73,15 @@ function Profile() {
 
         {userProfile && (
           <div className="grid grid-cols-1 md:grid-cols-3 mt-3 gap-8 items-stretch">
-            <div className="md:col-span-1 bg-gray-50 rounded-xl p-8 shadow-lg">
+            <div className="md:col-span-1 md:row-span-1 bg-gray-50 rounded-xl p-8 shadow-lg">
               <h2 className="text-2xl font-semibold text-green-900 mb-4">Profile Information</h2>
               <p className="text-gray-700 font-semibold"><span className="text-pink-800 my-2">Name:</span> {userProfile.firstName} {userProfile.lastName}</p>
               <p className="text-gray-700 font-semibold"><span className="text-pink-800 my-2">Email:</span> {user.email}</p>
             </div>
 
-            <div className="md:col-span-2 bg-gray-50 rounded-xl p-8 shadow-lg">
+            <div className="md:col-span-2 md:row-span-3 bg-gray-50 rounded-xl p-8 shadow-lg">
               <h2 className="text-2xl font-semibold text-green-900 mb-4">Weight Trend</h2>
-              <p className="text-gray-700">[Weight trend graph will be displayed here]</p>
+              <WeightGraph user={user} initialWeight={userProfile.weight} />
             </div>
 
             <div className="md:col-span-1 bg-gray-50 rounded-xl p-8 shadow-lg">

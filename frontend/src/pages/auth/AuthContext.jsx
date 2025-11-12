@@ -4,8 +4,8 @@ import { onAuthStateChanged} from 'firebase/auth';
 import { doc, getDoc, setDoc } from "firebase/firestore";
 import { db } from "../../firebase";
 import { isToday } from 'date-fns';
-import { calculateCycleInfo } from '../../components/CycleCalculation';
-import { calculateTDEE } from '../../components/TDEECalculation';
+import { calculateCycleInfo } from '../../utils/CycleCalculation';
+import { calculateTDEE } from '../../utils/TDEECalculation';
 
 const AuthContext = createContext();
 
