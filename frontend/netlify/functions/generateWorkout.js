@@ -1,5 +1,5 @@
-const admin = require('firebase-admin');
-const OpenAI = require('openai').default;
+import admin from 'firebase-admin';
+import OpenAI from 'openai';
 import process from "process";
 import { Buffer } from "buffer";
 
@@ -19,7 +19,7 @@ if (!admin.apps.length) {
   });
 }
 
-exports.handler = async (event) => {
+export const handler = async (event) => {
   try {
     const { userProfile, currentPhase } = JSON.parse(event.body);
 
