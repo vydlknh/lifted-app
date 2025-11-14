@@ -37,20 +37,30 @@ function Dashboard() {
           const profileData = userSnap.data();
           setUserProfile(profileData);
           console.log(profileData);
+
+          if (!profileData.tdee) {
+            console.error("TDEE missing from profile!");
+            setError('Profile incomplete. Please refresh the page.');
+            return;
+          }
           
           const storedWorkout = profileData.dailyWorkout;
 
           if (storedWorkout && storedWorkout.generatedDate && isToday(new Date(storedWorkout.generatedDate))) {
+            console.log("Using stored workout from today");
             setWorkoutPlan(storedWorkout);
           } else {
+            console.log("Generating new workout");
             await handleGenerateWorkout(profileData, uid);
           }
 
           const storedMealPlan = profileData.dailyMealPlan;
 
           if (storedMealPlan && storedMealPlan.generatedDate && isToday(new Date(storedMealPlan.generatedDate))) {
+            console.log("Using stored meal plan from today");
             setMealPlan(storedMealPlan);
           } else {
+            console.log("Generating new meal plan");
             await handleGenerateMealPlan(profileData, uid);
           }
         } else {

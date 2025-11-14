@@ -79,8 +79,8 @@ function WeightGraph({ user, initialWeight }) {
           datasets: [{
               label: 'Weight',
               data: weights,
-              backgroundColor: 'rgba(20, 83, 45, 0.8)',
-              borderColor: 'rgb(20 83 45)',
+              backgroundColor: 'oklch(40.8% 0.153 2.432)',
+              borderColor: 'oklch(40.8% 0.153 2.432)',
               tension: 0.1
           }]
         },
@@ -141,8 +141,8 @@ function WeightGraph({ user, initialWeight }) {
   }
 
   return (
-    <div className="bg-gray-50 rounded-xl p-8 shadow-lg">
-      <canvas ref={chartCanvasRef} id="weightChart" width="400" height="200"></canvas>
+    <div className="bg-gray-50 rounded-xl p-8">
+      <canvas ref={chartCanvasRef} id="weightChart" width="400" height="150"></canvas>
       <form onSubmit={handleAddWeight} className="mt-4">
         <input
           type="number"
@@ -151,7 +151,11 @@ function WeightGraph({ user, initialWeight }) {
           placeholder="Enter weight"
           className="border border-gray-300 rounded-md p-2 mr-2"
         />
-        <button type="submit" className="bg-pink-800 text-white px-4 py-2 rounded-md hover:bg-pink-900">Add Weight</button>
+        <button type="submit" className="bg-green-800 text-white px-4 py-2 rounded-md hover:bg-green-700">
+          <span className="font-semibold">
+            Add Weight
+          </span>
+        </button>
       </form>
       {error && <p className="text-red-500 mt-2">{error}</p>}
     </div>

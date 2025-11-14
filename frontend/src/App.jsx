@@ -5,7 +5,7 @@ import CycleTracking from './pages/CycleTracking'
 import Profile from './pages/Profile'
 import Login from './pages/auth/Login'
 import Signup from './pages/auth/Signup'
-import Questionnaire from './pages/profile/Questionnaire'
+import Questionnaire from './pages/Questionnaire'
 import NavBar from './components/NavBar'
 import { AuthProvider, useAuth } from './pages/auth/AuthContext';
 import './App.css'

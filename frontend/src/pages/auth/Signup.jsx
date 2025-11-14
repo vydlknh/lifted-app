@@ -43,7 +43,7 @@ const Signup = () => {
     } catch(error) {
         setError(error.code === 'auth/email-already-in-use' ? 'Email address is already in use.' : 'Failed to create an account.');
         console.error(error);
-      };
+    };
   };
 
   return (

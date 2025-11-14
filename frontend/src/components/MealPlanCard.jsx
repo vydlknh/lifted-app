@@ -1,4 +1,6 @@
-import { Coffee, Cookie, Moon, Apple, Croissant, Nut, Flame, Utensils, Beef } from "lucide-react"; // Added new icons for macros
+import { Coffee, Cookie, Moon, Apple, Croissant, Nut, Flame, Utensils, Beef } from "lucide-react";
+import { CSVLink, CSVDownload } from "react-csv";
+
 
 const MealItem = ({ icon, meal }) => {
   if (!meal || !meal.name) return null; // Don't render if meal is not specified
@@ -28,10 +30,28 @@ export const MealPlanCard = ({ mealPlan }) => {
     return <p>Could not load meal plan details.</p>;
   }
 
+  const csv_data = [
+    ["Meal", "Name", "Ingredients"],
+    ["Breakfast", plan.breakfast.name, plan.breakfast.ingredients.join("; ")],
+    ["Lunch", plan.lunch.name, plan.lunch.ingredients.join("; ")],
+    ["Dinner", plan.dinner.name, plan.dinner.ingredients.join("; ")],
+    ["Morning Snack", plan.snacks.morning_snack.name, plan.snacks.morning_snack.ingredients.join("; ")],
+    ["Afternoon Snack", plan.snacks.afternoon_snack.name, plan.snacks.afternoon_snack.ingredients.join("; ")],
+  ];
+
   return (
     <div>
       <div className="bg-gray-50 rounded-xl p-8 shadow-lg h-full">
-        <h2 className="text-2xl font-bold text-green-900 mb-4">Today's Meal Plan</h2>
+        <div className="flex justify-between items-center">
+          <h2 className="text-2xl font-bold text-green-900 mb-4">Today's Meal Plan</h2>
+          <button className="bg-green-800 text-white px-4 py-2 mb-4 rounded-md text-sm font-bold hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500">
+            <div className="font-bold">
+              <CSVLink data={csv_data} filename={"meal_plan.csv"} className="text-white">
+                Export as CSV
+              </CSVLink>
+            </div>
+          </button>
+        </div>
         <p className="text-sm font-semibold text-pink-800 mb-1">{mealPlan.rationale}</p>
 
         {/* Macros and Calories Section */}
@@ -65,7 +85,7 @@ export const MealPlanCard = ({ mealPlan }) => {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 mt-3 gap-5 items-stretch">
+      <div className="flex flex-col lg:grid lg:grid-cols-3 mt-3 gap-5 items-stretch">
         <div className="bg-gray-50 rounded-xl p-8 shadow-lg">
           <h3 className="text-lg font-bold text-gray-700">Breakfast</h3>
           <MealItem

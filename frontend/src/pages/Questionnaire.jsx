@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useAuth } from "../auth/AuthContext";
+import { useAuth } from "./auth/AuthContext";
 import { doc, setDoc } from "firebase/firestore";
-import { db } from "../../firebase";
-import { calculateCycleInfo } from "../../utils/CycleCalculation";
+import { db } from "../firebase";
+import { calculateCycleInfo } from "../utils/CycleCalculation";
+import { calculateTDEE } from "../utils/TDEECalculation";
 
 function Questionnaire() {
   const navigate = useNavigate();
@@ -127,6 +128,14 @@ function Questionnaire() {
       cycleLength
     });
 
+    const tdee = calculateTDEE({
+      age,
+      height,
+      weight,
+      activityLevel,
+      fitnessGoal
+    });
+
     const validationResult = validateForm(formData);
 
     if (Object.keys(validationResult).length > 0) {
@@ -138,11 +147,13 @@ function Questionnaire() {
       const userProfileData = {
         ...formData,
         cycleInfo,
+        tdee,
         email: user.email,
         createdAt: new Date()
       };
       const userRef = doc(db, 'UserProfiles', uid);
       await setDoc(userRef, userProfileData, { merge: true });
+      await new Promise(resolve => setTimeout(resolve, 500));
       navigate('/dashboard');
     } catch (err) {
       console.error('Error saving user profile:', err);

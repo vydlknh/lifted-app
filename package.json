@@ -20,7 +20,9 @@
   "homepage": "https://github.com/vydlknh/lifted-app#readme",
   "dependencies": {
     "firebase-admin": "^13.5.0",
+    "frontend": "file:frontend",
     "lucide-react": "^0.553.0",
-    "openai": "^6.7.0"
+    "openai": "^6.7.0",
+    "react-csv": "^2.2.2"
   }
 }

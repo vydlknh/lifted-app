@@ -76,7 +76,7 @@ function CycleTracking() {
         </div>
 
         {cycleInfo && (
-          <div className="grid grid-cols-1 md:grid-cols-3 mt-3 gap-8 items-stretch">
+          <div className="flex flex-col lg:grid lg:grid-cols-3 mt-3 gap-8 items-stretch">
             {/* current day */}
             <div className="md:col-span-1 bg-gray-50 rounded-xl p-6 flex flex-col items-center justify-center text-center shadow-lg">
               <p className="text-lg font-semibold text-pink-800">You are on day</p>
@@ -86,7 +86,7 @@ function CycleTracking() {
             </div>
 
             {/* current phase */}
-            <div className="md:col-span-2 bg-gray-50 rounded-xl p-8 shadow-lg">
+            <div className="lg:col-span-2 bg-gray-50 rounded-xl p-8 shadow-lg">
               <h2 className="text-sm uppercase font-semibold text-pink-800 mb-1">Current Phase</h2>
               <h3 className="text-3xl font-bold text-green-900">{cycleInfo.currentPhase.name}</h3>
               <p className="text-pink-600 font-medium my-2">{cycleInfo.currentPhase.duration}</p>
@@ -94,7 +94,7 @@ function CycleTracking() {
               <p className="text-gray-600 leading-relaxed">{cycleInfo.currentPhase.description}</p>
             </div>
 
-            <div className="md:col-span-3 bg-gray-50 rounded-xl p-8 shadow-lg">
+            <div className="lg:col-span-3 bg-gray-50 rounded-xl p-8 shadow-lg">
               <h2 className="text-sm uppercase font-semibold text-pink-800 mb-2">What happens during the {cycleInfo.currentPhase.name}</h2>
               <p className="text-gray-600 leading-relaxed">{cycleInfo.currentPhase.whathappens}</p>
               <h2 className="text-sm uppercase font-semibold text-pink-800 mt-4 mb-2">Symptoms</h2>
