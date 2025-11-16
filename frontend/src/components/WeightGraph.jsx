@@ -42,7 +42,7 @@ function WeightGraph({ user, initialWeight }) {
 
         const initialEntry = {
             id: 'initial',
-            date: new Date(user.metadata.creationTime).toISOString(), // Use account creation time
+            date: new Date(user.metadata.creationTime).toISOString(),
             weight: parseFloat(initialWeight)
         };
 
@@ -86,14 +86,28 @@ function WeightGraph({ user, initialWeight }) {
         },
         options: {
           responsive: true,
+          maintainAspectRatio: false,
           scales: {
+            x: {
+              ticks: {
+                maxRotation: 45,
+                minRotation: 45,
+                autoSkip: true,
+                maxTicksLimit: 8
+              }
+            },
             y: {
               beginAtZero: false,
               min: Math.min(...weights) - 2,
               max: Math.max(...weights) + 2
             }
+          },
+          plugins: {
+            legend: {
+              display: false
+            }
           }
-          }
+        }
       });
     }
     return () => {
@@ -141,17 +155,19 @@ function WeightGraph({ user, initialWeight }) {
   }
 
   return (
-    <div className="bg-gray-50 rounded-xl p-8">
-      <canvas ref={chartCanvasRef} id="weightChart" width="400" height="150"></canvas>
-      <form onSubmit={handleAddWeight} className="mt-4">
+    <div className="bg-gray-50 rounded-xl p-4">
+      <div className="relative h-[300px]">
+        <canvas ref={chartCanvasRef} id="weightChart"></canvas>
+      </div>
+      <form onSubmit={handleAddWeight} className="mt-4 flex flex-col sm:flex-row gap-2">
         <input
           type="number"
           value={newWeight}
           onChange={(e) => setNewWeight(e.target.value)}
           placeholder="Enter weight"
-          className="border border-gray-300 rounded-md p-2 mr-2"
+          className="border border-gray-300 rounded-md p-2 w-full sm:w-auto"
         />
-        <button type="submit" className="bg-green-800 text-white px-4 py-2 rounded-md hover:bg-green-700">
+        <button type="submit" className="bg-green-800 text-white px-4 py-2 rounded-md hover:bg-green-700 w-full sm:w-auto">
           <span className="font-semibold">
             Add Weight
           </span>
